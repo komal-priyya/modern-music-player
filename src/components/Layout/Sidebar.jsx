@@ -1,55 +1,80 @@
+import { useState } from "react";
+
 function Sidebar() {
+
+const [open, setOpen] = useState(false);
 
 return (
 
-<div className="w-64 bg-white border-r p-6">
+<>
 
-<h2 className="text-xl font-bold mb-8">
+{/* Mobile Toggle Button */}
+
+<button
+onClick={() => setOpen(!open)}
+className="md:hidden fixed top-4 left-4 z-50 bg-indigo-500 text-white p-2 rounded-lg shadow"
+>
+☰
+</button>
+
+{/* Sidebar */}
+
+<div
+className={`fixed md:static top-0 left-0 h-screen w-64 
+bg-white border-r shadow-lg p-6
+transform ${open ? "translate-x-0" : "-translate-x-full"} 
+md:translate-x-0 transition-transform duration-300`}
+>
+
+{/* Logo */}
+
+<h2 className="text-2xl font-bold mb-10 text-indigo-600 flex items-center gap-2">
 🎧 Muzify
 </h2>
 
-<ul className="space-y-4 text-gray-700">
+{/* Menu */}
 
-<li className="cursor-pointer hover:text-black">
-Home
+<ul className="space-y-3 text-gray-600 font-medium">
+
+<li className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 cursor-pointer transition">
+🏠 Home
 </li>
 
-<li className="cursor-pointer hover:text-black">
-Search
+<li className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 cursor-pointer transition">
+🔎 Search
 </li>
 
-
-<li className="cursor-pointer hover:text-black">
-Top Artist
+<li className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 cursor-pointer transition">
+⭐ Top Artist
 </li>
 
-
-
-<li className="cursor-pointer hover:text-black">
-New To You
+<li className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 cursor-pointer transition">
+🔥 New To You
 </li>
 
-<li className="cursor-pointer hover:text-black">
-Mood Music
+<li className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 cursor-pointer transition">
+🎧 Mood Music
 </li>
 
-<li className="cursor-pointer hover:text-black">
-Recently Played
+<li className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 cursor-pointer transition">
+🕘 Recently Played
 </li>
 
-<hr />
+<hr className="my-4"/>
 
-<li className="cursor-pointer hover:text-black">
-Playlists
+<li className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 cursor-pointer transition">
+📂 Playlists
 </li>
 
-<li className="cursor-pointer hover:text-black">
-Liked Songs
+<li className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 cursor-pointer transition">
+❤️ Liked Songs
 </li>
 
 </ul>
 
 </div>
+
+</>
 
 );
 
