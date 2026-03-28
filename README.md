@@ -1,21 +1,44 @@
-<<<<<<< HEAD
-# React + Vite
+# Muzify
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Muzify is a React + Firebase-ready music player built with Vite and Tailwind CSS. It combines free music APIs so you can search previews, open artist pages, save likes and playlists, and keep listening with live radio when preview clips end.
 
-Currently, two official plugins are available:
+## What makes it different
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The standout feature is `Blend Journey`.
 
-## React Compiler
+Instead of only queuing songs, Muzify lets you enter two artists or moods and creates a bridge playlist between them. It tries to move from the starting sound toward the destination sound with a smoother listening arc, then lets you save that journey into your library.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## APIs used
 
-## Expanding the ESLint configuration
+- iTunes Search API for song previews and artwork
+- MusicBrainz for artist metadata and tags
+- Radio Browser for live radio stations
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-=======
-# modern-music-player
- A react music player with advance feature and modern cool UI
->>>>>>> 6261cba10d33fda1aee038b059b1e376709d01b7
+## Firebase setup
+
+Muzify works without Firebase by falling back to local storage, but cloud sync is enabled when these Vite env variables are present:
+
+```env
+VITE_FIREBASE_API_KEY=
+VITE_FIREBASE_AUTH_DOMAIN=
+VITE_FIREBASE_PROJECT_ID=
+VITE_FIREBASE_STORAGE_BUCKET=
+VITE_FIREBASE_MESSAGING_SENDER_ID=
+VITE_FIREBASE_APP_ID=
+```
+
+Create a `.env` file with those values, then run:
+
+```bash
+npm install
+npm run dev
+```
+
+## Included library features
+
+- Search songs, artists, and stations
+- Artist deep-dive pages
+- Likes, history, and playlists
+- Firebase-ready persistence with local fallback
+- Live radio playback
+- Blend Journey generation and saving
