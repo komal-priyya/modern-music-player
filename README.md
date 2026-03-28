@@ -1,10 +1,10 @@
 
-# Modern Music Player ->Muzify
+⚡ Modern Music Player ->Muzify
 
 Muzify is a React + Firebase-ready music player built with Vite and Tailwind CSS. It combines free music APIs so you can search previews, open artist pages, save likes and playlists, and keep listening with live radio when preview clips end.
 ---
 
-## What makes it different
+##⚡ What makes it different
 
 -> The standout feature is `Blend Journey`.
 
@@ -18,7 +18,7 @@ User can ask the assistant to make playlist and can write lyrics the assistant w
 
 ---
 
-## APIs used
+## ⚡APIs used
 
 
 - iTunes Search API for song previews and artwork
@@ -31,7 +31,7 @@ User can ask the assistant to make playlist and can write lyrics the assistant w
 
 
 
-## Firebase setup
+##⚡ Firebase setup
 
 Muzify works without Firebase by falling back to local storage, but cloud sync is enabled when these Vite env variables are present:
 
@@ -55,17 +55,17 @@ npm run dev
 
 
 - Search songs, artists, and stations
-- 
+ 
 - Artist deep-dive pages
-- 
+  
 - Likes, history, and playlists
-- 
+  
 - Firebase-ready persistence with local fallback
-- 
+  
 - Live radio playback
-- 
+  
 - Blend Journey generation and saving
-- 
+  
 =======
 
 A modern music player built using React that allows users to preview songs by hovering over artist cards. This project focuses on interactive UI, smooth audio playback, and responsive design.
