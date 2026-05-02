@@ -6,9 +6,9 @@ import { usePlayer } from "../hooks/usePlayer";
 import { getAssistantReply } from "../services/musicAssistant";
 
 const starterPrompts = [
-  'make me a late night playlist',
-  'who sings "tum hi ho"',
+  "make me a late night playlist",
   "sad hindi night playlist",
+  'who sings "tum hi ho"',
 ];
 
 function Assistant() {
@@ -18,7 +18,7 @@ function Assistant() {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      text: "Ask me to build a fresh playlist or help identify a song.",
+      text: "Ask me to build a playlist or help identify a song.",
       tracks: [],
     },
   ]);
@@ -50,21 +50,30 @@ function Assistant() {
       return;
     }
 
-    const playlistId = createPlaylist(message.playlistName || "Assistant playlist");
+    const suggestedName = `My ${message.playlistName || "Assistant Playlist"}`;
+    const nextName = window.prompt("Enter a name for this playlist", suggestedName);
+
+    if (!nextName?.trim()) {
+      return;
+    }
+
+    const playlistId = createPlaylist(nextName.trim());
     addTracksToPlaylist(playlistId, message.tracks);
-    toast.success("Playlist created from assistant");
+    toast.success("Playlist saved to your library");
   }
 
   return (
-    <div className="space-y-8">
-      <section className="glass-panel p-4 sm:p-6 md:p-8">
+    <div className="space-y-6">
+      <section className="section-assistant p-5 sm:p-6 md:p-8">
         <div className="flex items-center gap-3">
-          <div className="rounded-2xl bg-gradient-to-br from-orange-400 to-pink-500 p-3 text-white">
+          <div className="rounded-xl bg-gradient-to-br from-pink-400 to-fuchsia-400 p-3 text-slate-950">
             <MessageCircle size={20} />
           </div>
           <div>
-            <h1 className="text-3xl font-semibold text-white sm:text-4xl">Muzify AI DJ</h1>
-            <p className="text-sm text-slate-400">Fresh playlists and song finder</p>
+            <h1 className="text-3xl font-semibold text-white sm:text-4xl">
+              Muzify <span className="highlight-pink">Assistant</span>
+            </h1>
+            <p className="text-sm text-slate-400">Playlists and song help</p>
           </div>
         </div>
 
@@ -74,7 +83,7 @@ function Assistant() {
               key={item}
               type="button"
               onClick={() => setPrompt(item)}
-              className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-200 transition hover:bg-white/10"
+              className="rounded-full border border-slate-700 bg-slate-800 px-4 py-2 text-sm text-slate-200 transition hover:bg-slate-700"
             >
               {item}
             </button>
@@ -82,12 +91,12 @@ function Assistant() {
         </div>
 
         <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-3 md:flex-row">
-          <div className="flex flex-1 items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+          <div className="flex flex-1 items-center gap-3 rounded-xl border border-slate-700 bg-slate-950 px-4 py-3">
             <Music4 size={18} className="text-slate-400" />
             <input
               value={prompt}
               onChange={(event) => setPrompt(event.target.value)}
-              placeholder="Make me a playlist or identify a song..."
+              placeholder="Ask for a playlist or identify a song..."
               className="w-full bg-transparent text-slate-100 outline-none placeholder:text-slate-500"
             />
           </div>
@@ -103,10 +112,10 @@ function Assistant() {
           {messages.map((message, index) => (
             <div key={`${message.role}-${index}`} className="space-y-4">
               <div
-                className={`rounded-3xl px-4 py-4 text-sm leading-6 ${
+                className={`rounded-2xl px-4 py-4 text-sm leading-6 ${
                   message.role === "user"
-                    ? "ml-auto max-w-2xl bg-gradient-to-r from-orange-400 to-pink-500 text-white"
-                    : "max-w-3xl border border-white/10 bg-white/5 text-slate-200"
+                    ? "ml-auto max-w-2xl bg-pink-400 text-slate-950"
+                    : "max-w-3xl border border-slate-800 bg-slate-900 text-slate-200"
                 }`}
               >
                 {message.text}
@@ -135,8 +144,14 @@ function Assistant() {
                   </div>
 
                   <div className="grid gap-4 xl:grid-cols-2">
-                    {message.tracks.map((track) => (
-                      <TrackCard key={`${track.id}-${index}`} track={track} compact />
+                    {message.tracks.map((track, trackIndex) => (
+                      <TrackCard
+                        key={`${track.id}-${index}`}
+                        track={track}
+                        compact
+                        queueTracks={message.tracks}
+                        queueIndex={trackIndex}
+                      />
                     ))}
                   </div>
                 </>

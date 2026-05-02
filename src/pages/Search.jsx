@@ -83,7 +83,7 @@ function Search() {
             <Link
               key={artist.id}
               to={`/artist/${encodeURIComponent(artist.name)}`}
-              className="rounded-3xl border border-white/10 bg-white/5 p-4 transition hover:border-orange-400/30 hover:bg-white/10"
+              className="rounded-2xl border border-slate-800 bg-slate-900 p-4 transition hover:border-slate-600 hover:bg-slate-800"
             >
               <img src={artist.image} alt={artist.name} className="h-40 w-full rounded-2xl object-cover" />
               <h3 className="mt-4 text-lg font-semibold text-white">{artist.name}</h3>
@@ -96,8 +96,13 @@ function Search() {
       <section className="glass-panel p-4 sm:p-6">
         <h2 className="text-xl font-semibold text-white">Songs</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
-          {tracks.map((track) => (
-            <TrackCard key={track.id} track={track} />
+          {tracks.map((track, index) => (
+            <TrackCard
+              key={track.id}
+              track={track}
+              queueTracks={tracks}
+              queueIndex={index}
+            />
           ))}
         </div>
       </section>

@@ -90,7 +90,7 @@ function PlaylistCard({
       onClick={handleOpen}
       onMouseEnter={startPreview}
       onMouseLeave={stopPreview}
-      className="rounded-3xl border border-white/10 bg-white/5 p-5 transition hover:border-cyan-300/30 hover:bg-white/10"
+      className="rounded-2xl border border-slate-800 bg-slate-900 p-5 transition hover:border-slate-600 hover:bg-slate-800"
     >
       <div className="flex items-center justify-between gap-3">
         <div className="min-w-0">

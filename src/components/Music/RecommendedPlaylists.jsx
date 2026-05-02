@@ -43,7 +43,7 @@ function RecommendedPlaylists() {
   }
 
   return (
-    <section className="glass-panel p-4 sm:p-6">
+    <section className="glass-panel accent-orange p-4 sm:p-6">
       <div className="mb-5 flex items-center gap-2 text-white">
         <Sparkles size={18} />
         <h2 className="text-2xl font-semibold">Recommended playlists</h2>

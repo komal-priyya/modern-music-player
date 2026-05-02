@@ -10,7 +10,9 @@ function Library() {
   return (
     <div className="space-y-8">
       <section className="glass-panel p-4 sm:p-6 md:p-8">
-        <h1 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">Your listening room</h1>
+        <h1 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+          Your <span className="highlight-violet">listening</span> room
+        </h1>
         <p className="mt-4 max-w-2xl text-base leading-7 text-slate-300">
           Likes, history, playlists, and Blend Journeys sync to Firebase when configured, and fall
           back to local storage when it is not.
@@ -24,7 +26,15 @@ function Library() {
         </div>
         <div className="grid gap-4 xl:grid-cols-2">
           {library.liked.length ? (
-            library.liked.map((track) => <TrackCard key={track.id} track={track} compact />)
+            library.liked.map((track, index) => (
+              <TrackCard
+                key={track.id}
+                track={track}
+                compact
+                queueTracks={library.liked}
+                queueIndex={index}
+              />
+            ))
           ) : (
             <p className="text-slate-400">Like a few tracks to start building your library.</p>
           )}
@@ -38,7 +48,15 @@ function Library() {
         </div>
         <div className="grid gap-4 xl:grid-cols-2">
           {library.history.length ? (
-            library.history.map((track) => <TrackCard key={`${track.id}-history`} track={track} compact />)
+            library.history.map((track, index) => (
+              <TrackCard
+                key={`${track.id}-history`}
+                track={track}
+                compact
+                queueTracks={library.history}
+                queueIndex={index}
+              />
+            ))
           ) : (
             <p className="text-slate-400">Play something from search or the home feed to see history here.</p>
           )}
@@ -56,7 +74,7 @@ function Library() {
         <div className="grid gap-4 xl:grid-cols-2">
           {library.journeys.length ? (
             library.journeys.map((journey) => (
-              <article key={journey.id} className="rounded-3xl border border-white/10 bg-white/5 p-5">
+              <article key={journey.id} className="rounded-3xl border border-sky-400/15 bg-slate-900 p-5">
                 <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Journey</p>
                 <h3 className="mt-3 text-xl font-semibold text-white">{journey.title}</h3>
                 <p className="mt-2 text-sm leading-6 text-slate-300">{journey.summary}</p>

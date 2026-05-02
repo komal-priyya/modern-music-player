@@ -101,7 +101,7 @@ function PlaylistDetail() {
               value={playlistName}
               onChange={(event) => setPlaylistName(event.target.value)}
               placeholder="Playlist name"
-              className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-3xl font-semibold text-white outline-none placeholder:text-slate-500 sm:text-4xl"
+              className="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-3xl font-semibold text-white outline-none placeholder:text-slate-500 sm:text-4xl"
             />
 
             <div className="flex flex-wrap gap-2">
@@ -150,7 +150,7 @@ function PlaylistDetail() {
         <h2 className="text-2xl font-semibold text-white">Add songs</h2>
 
         <form onSubmit={handleSearch} className="mt-4 flex flex-col gap-3 md:flex-row">
-          <div className="flex flex-1 items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+          <div className="flex flex-1 items-center gap-3 rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3">
             <Search size={18} className="text-slate-400" />
             <input
               value={searchText}
@@ -167,12 +167,14 @@ function PlaylistDetail() {
         {isSearching ? <p className="mt-4 text-slate-400">Searching...</p> : null}
 
         <div className="mt-6 grid gap-4 xl:grid-cols-2">
-          {searchResults.map((track) => (
+          {searchResults.map((track, index) => (
             <TrackCard
               key={`${playlist.id}-${track.id}`}
               track={track}
               compact
               saveLabel="Add to playlist"
+              queueTracks={searchResults}
+              queueIndex={index}
               onSave={() => addTrackToPlaylist(playlist.id, track)}
             />
           ))}
@@ -184,7 +186,13 @@ function PlaylistDetail() {
         <div className="mt-6 grid gap-4 xl:grid-cols-2">
           {playlist.tracks.length ? (
             playlist.tracks.map((track, index) => (
-              <TrackCard key={`${track.id}-${index}`} track={track} compact />
+              <TrackCard
+                key={`${track.id}-${index}`}
+                track={track}
+                compact
+                queueTracks={playlist.tracks}
+                queueIndex={index}
+              />
             ))
           ) : (
             <p className="text-slate-400">This playlist is empty.</p>

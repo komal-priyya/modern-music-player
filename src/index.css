@@ -16,26 +16,12 @@
   }
 
   body {
-    @apply m-0 min-h-screen bg-slate-950 text-slate-100 antialiased;
+    @apply m-0 min-h-screen text-slate-100 antialiased;
     font-family: "Segoe UI", system-ui, sans-serif;
-    background-color: #07101c;
-    background-image:
-      radial-gradient(circle at 8% 12%, rgba(255, 126, 95, 0.35), transparent 24%),
-      radial-gradient(circle at 88% 16%, rgba(34, 211, 238, 0.22), transparent 20%),
-      radial-gradient(circle at 54% 78%, rgba(236, 72, 153, 0.18), transparent 24%),
-      linear-gradient(145deg, #07101c 0%, #111827 42%, #0f172a 100%);
-  }
-
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 42px 42px;
-    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent 80%);
+    background:
+      radial-gradient(circle at top left, rgba(251, 146, 60, 0.2), transparent 28%),
+      radial-gradient(circle at top right, rgba(56, 189, 248, 0.16), transparent 24%),
+      linear-gradient(180deg, #0f172a 0%, #111827 100%);
   }
 
   a {
@@ -50,16 +36,13 @@
   }
 
   ::selection {
-    background: rgba(236, 72, 153, 0.35);
+    background: rgba(251, 146, 60, 0.25);
   }
 }
 
 @layer components {
   .glass-panel {
-    @apply rounded-3xl border border-white/10 bg-slate-900/65 shadow-2xl backdrop-blur-xl;
-    box-shadow:
-      0 24px 90px rgba(8, 15, 29, 0.45),
-      inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    @apply rounded-2xl border border-slate-800 bg-slate-900 shadow-sm;
   }
 
   .section-title {
@@ -71,25 +54,49 @@
   }
 
   .pill {
-    @apply inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.24em] text-slate-300;
+    @apply inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-800 px-3 py-1 text-xs font-medium text-slate-300;
   }
 
   .action-button {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-slate-100 transition;
-    background-image: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.08),
-      rgba(255, 255, 255, 0.03)
-    );
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-slate-700 px-4 py-2 text-sm font-medium text-slate-100 transition;
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
   }
 
   .action-button:hover {
-    border-color: rgba(251, 146, 60, 0.4);
-    background-image: linear-gradient(
-      135deg,
-      rgba(251, 146, 60, 0.18),
-      rgba(236, 72, 153, 0.16)
-    );
+    border-color: rgba(251, 146, 60, 0.45);
+    background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
+  }
+
+  .section-assistant {
+    @apply rounded-2xl border border-pink-900 bg-[#1b1320];
+  }
+
+  .section-blend {
+    @apply rounded-2xl border border-emerald-900 bg-[#10201b];
+  }
+
+  .section-playlist {
+    @apply rounded-2xl border border-violet-900 bg-[#181326];
+  }
+
+  .highlight-orange {
+    @apply text-orange-300;
+  }
+
+  .highlight-sky {
+    @apply text-sky-300;
+  }
+
+  .highlight-pink {
+    @apply text-pink-300;
+  }
+
+  .highlight-violet {
+    @apply text-violet-300;
+  }
+
+  .highlight-emerald {
+    @apply text-emerald-300;
   }
 }
 

@@ -18,7 +18,7 @@ function Playlist() {
   };
 
   return (
-    <section className="glass-panel p-4 sm:p-6">
+    <section className="section-playlist p-4 sm:p-6">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <p className="pill">
@@ -36,7 +36,7 @@ function Playlist() {
             value={playlistName}
             onChange={(event) => setPlaylistName(event.target.value)}
             placeholder="Name a playlist..."
-            className="w-full rounded-full border border-white/10 bg-white/5 px-5 py-3 text-slate-100 outline-none placeholder:text-slate-500"
+            className="w-full rounded-full border border-violet-400/15 bg-slate-900 px-5 py-3 text-slate-100 outline-none placeholder:text-slate-500"
           />
           <button type="submit" className="action-button whitespace-nowrap">
             <Plus size={16} />

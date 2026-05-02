@@ -27,10 +27,12 @@ function JourneyBuilder() {
   }
 
   return (
-    <section className="glass-panel p-6 md:p-8">
+    <section className="section-blend p-6 md:p-8">
       <div className="grid gap-8 xl:grid-cols-[0.9fr_1.1fr]">
         <div>
-          <h2 className="text-3xl font-semibold text-white">Blend Journey</h2>
+          <h2 className="text-3xl font-semibold text-white">
+            <span className="highlight-emerald">Blend</span> Journey
+          </h2>
           <p className="mt-3 text-sm text-slate-400">From one artist to another, smoothly.</p>
 
           <div className="mt-8 grid gap-4">
@@ -39,7 +41,7 @@ function JourneyBuilder() {
               <input
                 value={fromArtist}
                 onChange={(event) => setFromArtist(event.target.value)}
-                className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-slate-100 outline-none"
+                className="rounded-2xl border border-slate-700 bg-slate-900 px-4 py-3 text-slate-100 outline-none"
               />
             </label>
             <label className="grid gap-2 text-sm text-slate-300">
@@ -47,7 +49,7 @@ function JourneyBuilder() {
               <input
                 value={toArtist}
                 onChange={(event) => setToArtist(event.target.value)}
-                className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-slate-100 outline-none"
+                className="rounded-2xl border border-slate-700 bg-slate-900 px-4 py-3 text-slate-100 outline-none"
               />
             </label>
             <label className="grid gap-2 text-sm text-slate-300">
@@ -55,7 +57,7 @@ function JourneyBuilder() {
               <select
                 value={mood}
                 onChange={(event) => setMood(event.target.value)}
-                className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-slate-100 outline-none"
+                className="rounded-2xl border border-slate-700 bg-slate-900 px-4 py-3 text-slate-100 outline-none"
               >
                 {moods.map((option) => (
                   <option key={option} value={option}>
@@ -88,7 +90,7 @@ function JourneyBuilder() {
           </div>
         </div>
 
-        <div className="rounded-[32px] border border-white/10 bg-white/5 p-5">
+        <div className="rounded-[32px] border border-slate-800 bg-slate-900 p-5">
           {loading ? (
             <div className="flex h-full items-center justify-center text-slate-300">Generating...</div>
           ) : journey ? (
@@ -115,8 +117,14 @@ function JourneyBuilder() {
               </div>
 
               <div className="grid gap-4">
-                {journey.tracks.map((track) => (
-                  <TrackCard key={track.id} track={track} compact />
+                {journey.tracks.map((track, index) => (
+                  <TrackCard
+                    key={track.id}
+                    track={track}
+                    compact
+                    queueTracks={journey.tracks}
+                    queueIndex={index}
+                  />
                 ))}
               </div>
             </div>

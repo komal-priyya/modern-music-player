@@ -69,7 +69,7 @@ function FooterPlayer() {
   }
 
   return (
-    <footer className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/10 bg-slate-950/92 px-3 py-3 backdrop-blur-2xl sm:px-4 sm:py-4 md:px-6 xl:left-[290px]">
+    <footer className="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-800 bg-slate-950 px-3 py-3 sm:px-4 sm:py-4 md:px-6 xl:left-[290px]">
       <audio
         ref={audioRef}
         onPlay={() => setPlaying(true)}
@@ -81,7 +81,7 @@ function FooterPlayer() {
 
       <div className="grid gap-3 sm:gap-4 md:grid-cols-[1.2fr_1.4fr_1fr] md:items-center">
         <div className="flex min-w-0 items-center gap-4">
-          <div className="h-14 w-14 shrink-0 overflow-hidden rounded-2xl bg-white/5 sm:h-16 sm:w-16">
+          <div className="h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-slate-900 sm:h-16 sm:w-16">
             {currentTrack?.artwork ? (
               <img
                 src={currentTrack.artwork}
@@ -120,7 +120,7 @@ function FooterPlayer() {
               type="button"
               onClick={() => setPlaying(!isPlaying)}
               disabled={!currentTrack}
-              className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-r from-orange-500 to-cyan-400 text-slate-950 shadow-lg shadow-orange-900/20 transition disabled:cursor-not-allowed disabled:opacity-50 sm:h-14 sm:w-14"
+              className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 text-slate-950 transition disabled:cursor-not-allowed disabled:opacity-50 sm:h-14 sm:w-14"
             >
               {isPlaying ? <Pause size={20} /> : <Play size={20} className="ml-1" />}
             </button>

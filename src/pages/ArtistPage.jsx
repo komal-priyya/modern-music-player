@@ -99,7 +99,7 @@ function ArtistPage() {
             </div>
           </div>
 
-          <div className="rounded-[32px] border border-white/10 bg-gradient-to-br from-orange-500/20 via-slate-900 to-cyan-400/15 p-4 sm:p-5">
+          <div className="rounded-[32px] border border-slate-800 bg-slate-900 p-4 sm:p-5">
             <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Live radio options</p>
             <div className="mt-4 space-y-3">
               {radioStations.map((station) => (
@@ -107,7 +107,7 @@ function ArtistPage() {
                   key={station.id}
                   type="button"
                   onClick={() => playQueue([station], 0)}
-                  className="flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left transition hover:bg-white/10"
+                  className="flex w-full items-center justify-between rounded-2xl border border-slate-800 bg-slate-950 px-4 py-3 text-left transition hover:bg-slate-800"
                 >
                   <div>
                     <p className="font-medium text-white">{station.title}</p>
@@ -124,8 +124,14 @@ function ArtistPage() {
       <section className="glass-panel p-4 sm:p-6">
         <h2 className="text-2xl font-semibold text-white">Top song previews</h2>
         <div className="mt-6 grid gap-4 xl:grid-cols-2">
-          {topTracks.map((track) => (
-            <TrackCard key={track.id} track={track} compact />
+          {topTracks.map((track, index) => (
+            <TrackCard
+              key={track.id}
+              track={track}
+              compact
+              queueTracks={topTracks}
+              queueIndex={index}
+            />
           ))}
         </div>
       </section>

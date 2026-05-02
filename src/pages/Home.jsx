@@ -1,23 +1,27 @@
-import { useEffect, useState } from "react";
-import { ArrowRight, Radio, Sparkles } from "lucide-react";
-import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight, Radio } from "lucide-react";
+import { Link, useSearchParams } from "react-router-dom";
 import JourneyBuilder from "../components/Music/JourneyBuilder";
 import StationCard from "../components/Music/StationCard";
 import TopArtists from "../components/Music/TopArtists";
 import TrackCard from "../components/Music/TrackCard";
-import { getHomeStations, getTrendingTracks } from "../services/musicApi";
+import { getFeaturedArtists, getHomeStations, getTrendingTracks } from "../services/musicApi";
 
 function Home() {
+  const [searchParams] = useSearchParams();
   const [trendingTracks, setTrendingTracks] = useState([]);
   const [stations, setStations] = useState([]);
+  const [topArtistSongs, setTopArtistSongs] = useState([]);
+  const blendRef = useRef(null);
 
   useEffect(() => {
     let active = true;
 
     async function loadHomeData() {
-      const [nextTrending, nextStations] = await Promise.all([
+      const [nextTrending, nextStations, artists] = await Promise.all([
         getTrendingTracks(),
         getHomeStations(),
+        getFeaturedArtists(),
       ]);
 
       if (!active) {
@@ -26,6 +30,12 @@ function Home() {
 
       setTrendingTracks(nextTrending);
       setStations(nextStations);
+      setTopArtistSongs(
+        artists
+          .map((artist) => artist.tracks[0])
+          .filter(Boolean)
+          .slice(0, 6)
+      );
     }
 
     loadHomeData().catch(() => {});
@@ -35,43 +45,71 @@ function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    if (searchParams.get("section") === "blend") {
+      blendRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [searchParams]);
+
   return (
-    <div className="space-y-8">
-      <section className="glass-panel relative overflow-hidden p-4 sm:p-6 md:p-8">
-        <div className="absolute -left-10 top-10 h-44 w-44 rounded-full bg-orange-500/20 blur-3xl" />
-        <div className="absolute right-0 top-0 h-56 w-56 rounded-full bg-cyan-400/15 blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 h-36 w-36 rounded-full bg-pink-500/20 blur-3xl" />
+    <div className="space-y-6">
+      <section className="glass-panel p-5 sm:p-6 md:p-8">
+        <div className="max-w-3xl">
+          <h1 className="text-3xl font-semibold text-white sm:text-4xl">
+            Welcome to <span className="highlight-orange">Muzify</span>
+          </h1>
+          <p className="mt-3 text-sm leading-6 text-slate-300 sm:text-base">
+            Search songs, build playlists, explore artists, and play music in one place.
+          </p>
 
-        <div className="relative grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
-          <div className="max-w-3xl">
-            <span className="pill">
-              <Sparkles size={14} />
-            </span>
-
-            <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
-              <Link to="/search" className="action-button">
-                Start searching
-                <ArrowRight size={16} />
-              </Link>
-              <Link to="/library" className="action-button">
-                Open library
-              </Link>
-            </div>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link to="/search" className="action-button">
+              Start searching
+              <ArrowRight size={16} />
+            </Link>
+            <Link to="/library" className="action-button">
+              Open library
+            </Link>
           </div>
         </div>
       </section>
 
-      <JourneyBuilder />
+      <div ref={blendRef}>
+        <JourneyBuilder />
+      </div>
+
       <TopArtists />
 
       <section className="glass-panel p-4 sm:p-6">
-        <div className="flex items-center justify-between gap-4">
-          <h2 className="text-2xl font-semibold text-white">Quick picks</h2>
+        <h2 className="text-2xl font-semibold text-white">
+          <span className="highlight-sky">Top artist</span> songs
+        </h2>
+        <div className="mt-5 grid gap-4 xl:grid-cols-3">
+          {topArtistSongs.map((track, index) => (
+            <TrackCard
+              key={`${track.id}-artist-song`}
+              track={track}
+              compact
+              queueTracks={topArtistSongs}
+              queueIndex={index}
+            />
+          ))}
         </div>
+      </section>
 
-        <div className="mt-6 grid gap-4 xl:grid-cols-3">
-          {trendingTracks.slice(0, 6).map((track) => (
-            <TrackCard key={track.id} track={track} compact />
+      <section className="glass-panel p-4 sm:p-6">
+        <h2 className="text-2xl font-semibold text-white">
+          <span className="highlight-orange">Top</span> songs
+        </h2>
+        <div className="mt-5 grid gap-4 xl:grid-cols-3">
+          {trendingTracks.slice(0, 6).map((track, index, list) => (
+            <TrackCard
+              key={track.id}
+              track={track}
+              compact
+              queueTracks={list}
+              queueIndex={index}
+            />
           ))}
         </div>
       </section>

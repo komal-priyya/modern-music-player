@@ -44,9 +44,7 @@ function ArtistCardPreview({ artist }) {
     audioRef.current.muted = muted;
     audioRef.current.play().catch(() => {});
 
-    timerRef.current = setTimeout(() => {
-      stopSong();
-    }, 5500);
+    timerRef.current = setTimeout(stopSong, 5500);
   }
 
   function toggleMute(event) {
@@ -70,15 +68,13 @@ function ArtistCardPreview({ artist }) {
       onClick={() => navigate(`/artist/${encodeURIComponent(artist.name)}`)}
       onMouseEnter={playSong}
       onMouseLeave={stopSong}
-      className="group relative w-full overflow-hidden rounded-[28px] border border-white/10 bg-slate-900/70 p-5 shadow-xl transition duration-300 hover:-translate-y-1 hover:border-cyan-300/30 hover:bg-slate-900"
+      className="relative w-full overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 p-5 transition hover:border-slate-600 hover:bg-slate-800"
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-orange-500/15 via-transparent to-cyan-400/10 opacity-0 transition group-hover:opacity-100" />
-
-      <div className="relative flex justify-between gap-4">
+      <div className="flex justify-between gap-4">
         <img
           src={artist.image}
           alt={artist.name}
-          className="h-24 w-24 rounded-[24px] object-cover shadow-lg shadow-slate-950/50"
+          className="h-24 w-24 rounded-2xl object-cover"
         />
 
         <button
@@ -89,29 +85,29 @@ function ArtistCardPreview({ artist }) {
               playQueue(artist.tracks, 0);
             }
           }}
-          className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition hover:bg-orange-500/15"
+          className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-700 bg-slate-800 text-white transition hover:border-sky-400/40"
         >
           <PlayCircle size={20} />
         </button>
       </div>
 
-      <div className="relative mt-5">
+      <div className="mt-5">
         <h3 className="text-lg font-semibold text-white">{artist.name}</h3>
         <div className="mt-2 flex flex-wrap gap-2 text-xs text-slate-300">
-          <span className="inline-flex items-center gap-1 rounded-full bg-white/5 px-2 py-1">
+          <span className="inline-flex items-center gap-1 rounded-full border border-slate-700 bg-slate-800 px-2 py-1">
             <Headphones size={12} />
             {artist.trackCount} previews
           </span>
 
           {artist.country ? (
-            <span className="inline-flex items-center gap-1 rounded-full bg-white/5 px-2 py-1">
+            <span className="inline-flex items-center gap-1 rounded-full border border-slate-700 bg-slate-800 px-2 py-1">
               <MapPin size={12} />
               {artist.country}
             </span>
           ) : null}
 
           {artist.tagline ? (
-            <span className="inline-flex items-center gap-1 rounded-full bg-white/5 px-2 py-1">
+            <span className="inline-flex items-center gap-1 rounded-full border border-slate-700 bg-slate-800 px-2 py-1">
               <Radio size={12} />
               {artist.tagline}
             </span>
@@ -122,7 +118,7 @@ function ArtistCardPreview({ artist }) {
       <button
         type="button"
         onClick={toggleMute}
-        className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur"
+        className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-full border border-slate-700 bg-slate-800 text-white"
       >
         {muted ? <VolumeX size={16} /> : <Volume2 size={16} />}
       </button>

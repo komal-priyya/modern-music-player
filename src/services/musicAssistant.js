@@ -128,10 +128,14 @@ async function buildGeneratedPlaylist(prompt) {
   const queries = buildPlaylistQueries(prompt);
   const resultSets = await Promise.all(queries.map((query) => searchTracks(query, 8)));
   const tracks = dedupeTracks(resultSets.flat()).slice(0, 12);
+  const songPreview = tracks
+    .slice(0, 4)
+    .map((track) => `${track.title} by ${track.artist}`)
+    .join(", ");
 
   return {
     text: tracks.length
-      ? `I built a fresh playlist for "${extractSearchText(prompt) || prompt.trim()}".`
+      ? `I built a fresh playlist for "${extractSearchText(prompt) || prompt.trim()}". Songs included: ${songPreview}.`
       : `I could not build a playlist for "${prompt.trim()}" yet.`,
     tracks,
     intent: "playlist",
