@@ -112,9 +112,11 @@ function TrackCard({
             </p>
           </div>
 
-          <span className="rounded-md border border-slate-700 bg-slate-950 px-2 py-1 text-[11px] uppercase tracking-[0.12em] text-slate-400">
-            {track.sourceLabel}
-          </span>
+          <span >
+            {/* {track.sourceLabel} */}
+          </span> 
+
+
         </div>
 
         {!compact ? (
