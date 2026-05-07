@@ -14,8 +14,7 @@ function Library() {
           Your <span className="highlight-violet">listening</span> room
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-7 text-slate-300">
-          Likes, history, playlists, and Blend Journeys sync to Firebase when configured, and fall
-          back to local storage when it is not.
+          
         </p>
       </section>
 
@@ -36,7 +35,7 @@ function Library() {
               />
             ))
           ) : (
-            <p className="text-slate-400">Like a few tracks to start building your library.</p>
+            <p className="text-slate-400"></p>
           )}
         </div>
       </section>
@@ -58,7 +57,7 @@ function Library() {
               />
             ))
           ) : (
-            <p className="text-slate-400">Play something from search or the home feed to see history here.</p>
+            <p className="text-slate-400"></p>
           )}
         </div>
       </section>

@@ -91,10 +91,10 @@ function ArtistPage() {
 
             <div className="mt-8 flex flex-wrap gap-3">
               <button type="button" onClick={() => playQueue(topTracks, 0)} className="action-button">
-                Play top tracks
+              
               </button>
               <button type="button" onClick={handleSaveMix} className="action-button">
-                Save essentials playlist
+                
               </button>
             </div>
           </div>
