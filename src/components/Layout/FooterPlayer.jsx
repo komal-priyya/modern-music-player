@@ -1,3 +1,46 @@
+// import { Outlet } from "react-router-dom";
+// import FooterPlayer from "./FooterPlayer";
+// import Header from "./Header";
+// import PageNavigation from "./PageNavigation";
+// import Sidebar from "./Sidebar";
+
+// function Layout() {
+//   return (
+//     <div className="flex min-h-screen w-full overflow-x-hidden bg-transparent text-slate-50">
+//       <Sidebar />
+
+//       <div className="flex min-h-screen min-w-0 flex-1 flex-col">
+//         <Header />
+
+//         <main
+//           className="
+//             flex-1
+//             px-2
+//             pt-16
+//             pb-56
+//             sm:px-4
+//             sm:pt-20
+//             sm:pb-52
+//             md:px-6
+//             md:pb-40
+//             lg:px-8
+//             xl:pt-6
+//           "
+//         >
+//           <div className="mx-auto w-full max-w-7xl overflow-hidden">
+//             <PageNavigation />
+//             <Outlet />
+//           </div>
+//         </main>
+
+//         <FooterPlayer />
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default Layout;
+
 import { useEffect, useRef } from "react";
 import { Pause, Play, SkipBack, SkipForward, Volume2, Waves } from "lucide-react";
 import { usePlayer } from "../../hooks/usePlayer";
@@ -69,7 +112,9 @@ function FooterPlayer() {
   }
 
   return (
-    <footer className="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-800 bg-slate-950 px-3 py-3 sm:px-4 sm:py-4 md:px-6 xl:left-[290px]">
+    // <footer className="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-800 bg-slate-950 px-3 py-3 sm:px-4 sm:py-4 md:px-6 xl:left-[290px]">
+     
+     <footer className="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-800 bg-slate-950 px-3 py-3 sm:px-4 sm:py-4 md:px-6 xl:left-[290px] overflow-x-hidden">
       <audio
         ref={audioRef}
         onPlay={() => setPlaying(true)}
@@ -79,7 +124,9 @@ function FooterPlayer() {
         onEnded={playNext}
       />
 
-      <div className="grid gap-3 sm:gap-4 md:grid-cols-[1.2fr_1.4fr_1fr] md:items-center">
+      {/* <div className="grid gap-3 sm:gap-4 md:grid-cols-[1.2fr_1.4fr_1fr] md:items-center"> */}
+      <div className="grid gap-4 md:grid-cols-[1.2fr_1.4fr_1fr] md:items-center">
+      
         <div className="flex min-w-0 items-center gap-4">
           <div className="h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-slate-900 sm:h-16 sm:w-16">
             {currentTrack?.artwork ? (
@@ -145,7 +192,9 @@ function FooterPlayer() {
           </div>
         </div>
 
-        <div className="flex items-center justify-start gap-3 md:justify-end">
+        {/* <div className="flex items-center justify-start gap-3 md:justify-end"> */}
+          <div className="flex w-full items-center justify-start gap-3 md:justify-end">
+          
           <Volume2 size={18} className="shrink-0 text-slate-400" />
           <input
             type="range"
@@ -154,7 +203,8 @@ function FooterPlayer() {
             step="0.01"
             value={volume}
             onChange={(event) => setVolume(Number(event.target.value))}
-            className="h-1 w-full max-w-none accent-cyan-400 md:max-w-40"
+            // className="h-1 w-full max-w-none accent-cyan-400 md:max-w-40"
+className="h-1 w-full accent-cyan-400 md:max-w-40"
           />
         </div>
       </div>

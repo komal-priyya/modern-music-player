@@ -83,7 +83,9 @@ function Sidebar() {
       ) : null}
 
       <aside
-        className={`fixed inset-y-0 left-0 z-40 w-[min(290px,88vw)] px-3 py-4 transition-transform duration-300 sm:px-5 sm:py-6 xl:static xl:w-[290px] xl:translate-x-0 ${
+        className={`
+        fixed inset-y-0 left-0 z-40 w-[min(290px,88vw)] px-3 py-4 transition-transform duration-300 sm:px-5 sm:py-6 xl:static xl:w-[290px] xl:translate-x-0 
+          ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >

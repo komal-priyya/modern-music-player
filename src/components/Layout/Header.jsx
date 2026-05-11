@@ -5,6 +5,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { usePlayer } from "../../hooks/usePlayer";
 import ProfileMenu from "./ProfileMenu";
 
+
+
 const quickLinks = [
   { label: "Discover", path: "/", icon: <Compass size={15} />, activeClass: "border-sky-400/40 bg-sky-400/20" },
   { label: "Search", path: "/search", icon: <Search size={15} />, activeClass: "border-orange-400/40 bg-orange-400/20" },
@@ -19,6 +21,8 @@ function Header() {
     const params = new URLSearchParams(window.location.search);
     return params.get("q") || "";
   });
+
+  const [showMobileSearch, setShowMobileSearch] = useState(false);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -42,11 +46,15 @@ function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-800 bg-slate-950 px-3 py-3 sm:px-4 sm:py-4 md:px-8">
+    // <header className="sticky top-0 z-30 border-b border-slate-800 bg-slate-950 px-3 py-3 sm:px-4 sm:py-4 md:px-8">
+      <header className="sticky top-0 z-30 w-full overflow-x-hidden border-b border-slate-800 bg-slate-950 px-3 py-3 sm:px-4 sm:py-4 md:px-8">
+      
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-3 sm:gap-4">
         <div className="flex flex-col gap-3 2xl:flex-row 2xl:items-center 2xl:justify-between">
-          <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden 2xl:overflow-visible">
-            {quickLinks.map((item) => (
+          {/* <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden 2xl:overflow-visible"> */}
+           {/* <div className="flex flex-nowrap gap-2 overflow-x-auto">
+           
+              {quickLinks.map((item) => (
               <NavLink
                 key={item.path}
                 to={item.path}
@@ -62,7 +70,7 @@ function Header() {
                 {item.label}
               </NavLink>
             ))}
-          </div>
+          </div>   */}
 
           <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-2 sm:flex sm:flex-wrap sm:items-stretch sm:gap-3">
             <button
@@ -93,7 +101,7 @@ function Header() {
           </div>
         </div>
 
-        <form
+        {/* <form
           onSubmit={handleSubmit}
           className="flex items-center gap-3 rounded-xl border border-slate-800 bg-slate-900 px-3 py-3 text-slate-200 sm:px-4"
         >
@@ -104,7 +112,43 @@ function Header() {
             placeholder="Search songs, artists, moods..."
             className="min-w-0 w-full bg-transparent outline-none placeholder:text-slate-400"
           />
-        </form>
+        </form> */}
+
+
+<div className="w-full">
+  {/* Mobile Search Icon */}
+  <div className="flex justify-end sm:hidden">
+    <button
+      type="button"
+      onClick={() => setShowMobileSearch((prev) => !prev)}
+      className="rounded-lg border border-slate-800 bg-slate-900 p-3 text-slate-200"
+    >
+      <Search size={18} />
+    </button>
+  </div>
+
+  {/* Search Form */}
+  <form
+    onSubmit={handleSubmit}
+    className={`
+      mt-3 flex items-center gap-3 rounded-xl border border-slate-800
+      bg-slate-900 px-3 py-3 text-slate-200 sm:mt-0 sm:flex
+      ${showMobileSearch ? "flex" : "hidden sm:flex"}
+    `}
+  >
+    <Search size={18} className="text-slate-300" />
+
+    <input
+      value={query}
+      onChange={(event) => setQuery(event.target.value)}
+      placeholder="Search songs, artists, moods..."
+      className="min-w-0 w-full bg-transparent outline-none placeholder:text-slate-400"
+    />
+  </form>
+</div>
+
+
+
       </div>
     </header>
   );
