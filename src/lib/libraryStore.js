@@ -1,5 +1,6 @@
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { db, ensureFirebaseUser, isFirebaseConfigured } from "./firebase";
+// import { db, ensureFirebaseUser, isFirebaseConfigured } from "./firebase";
+import {  ensureFirebaseUser, isFirebaseConfigured } from "./firebase";
 
 const STORAGE_KEY = "muzify-library-v2";
 
