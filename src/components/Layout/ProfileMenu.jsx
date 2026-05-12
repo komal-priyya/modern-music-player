@@ -745,7 +745,7 @@ function ProfileMenu() {
                 <p className="mt-2 text-sm text-slate-400">
                   {isLoggedIn
                     ? "Manage your account here."
-                    : "Sign in or create an account to keep your playlists and library."}
+                    : ""}
                 </p>
               </div>
 

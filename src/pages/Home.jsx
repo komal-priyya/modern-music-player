@@ -58,9 +58,7 @@ function Home() {
           <h1 className="text-3xl font-semibold text-white sm:text-4xl">
             Welcome to <span className="highlight-orange">Muzify</span>
           </h1>
-          <p className="mt-3 text-sm leading-6 text-slate-300 sm:text-base">
-            Search songs, build playlists, explore artists, and play music in one place.
-          </p>
+          
 
           <div className="mt-6 flex flex-wrap gap-3">
             <Link to="/search" className="action-button">

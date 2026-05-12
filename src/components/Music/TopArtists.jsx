@@ -31,10 +31,7 @@ function TopArtists() {
             Fast jump into <span className="highlight-sky">top artists</span>
           </h2>
         </div>
-        <p className="section-copy max-w-2xl">
-          Hover a card for a quick preview, open the artist page for deeper info, or launch their
-          tracks straight into the player.
-        </p>
+      
       </div>
 
       <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">

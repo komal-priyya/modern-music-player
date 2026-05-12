@@ -83,7 +83,9 @@ function Library() {
               </article>
             ))
           ) : (
-            <p className="text-slate-400">Save a Blend Journey from the home page to keep it here.</p>
+            <p className="text-slate-400">
+              {/* Save a Blend Journey from the home page to keep it here. */}
+              </p>
           )}
         </div>
       </section>

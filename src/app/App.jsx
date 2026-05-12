@@ -53,7 +53,7 @@ function App() {
     <PlayerProvider>
       <BrowserRouter>
         <Routes>
-          <Route element={<Layout />}>
+            <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<Search />} />
             <Route path="/library" element={<Library />} />
