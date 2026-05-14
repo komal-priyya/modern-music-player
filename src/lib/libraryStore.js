@@ -273,49 +273,49 @@
 
 
 
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { db, ensureFirebaseUser, isFirebaseConfigured } from "./firebase";
+// import { doc, getDoc, setDoc } from "firebase/firestore";
+// import { db, ensureFirebaseUser, isFirebaseConfigured } from "./firebase";
 
-function getStorageKey(userId) {
-  return userId ? `muzify-library-v2-${userId}` : "muzify-library-guest";
-}
+// function getStorageKey(userId) {
+//   return userId ? `muzify-library-v2-${userId}` : "muzify-library-guest";
+// }
 
-export const defaultLibraryState = {
-  liked: [],
-  history: [],
-  journeys: [],
-  playlists: [
-    {
-      id: "quick-capture",
-      name: "Quick Capture",
-      tracks: [],
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    },
-  ],
-};
+// export const defaultLibraryState = {
+//   liked: [],
+//   history: [],
+//   journeys: [],
+//   playlists: [
+//     {
+//       id: "quick-capture",
+//       name: "Quick Capture",
+//       tracks: [],
+//       createdAt: new Date().toISOString(),
+//       updatedAt: new Date().toISOString(),
+//     },
+//   ],
+// };
 
-function mergeWithDefaults(rawState) {
-  return {
-    ...defaultLibraryState,
-    ...rawState,
-    playlists:
-      rawState?.playlists?.length > 0 ? rawState.playlists : defaultLibraryState.playlists,
-  };
-}
+// function mergeWithDefaults(rawState) {
+//   return {
+//     ...defaultLibraryState,
+//     ...rawState,
+//     playlists:
+//       rawState?.playlists?.length > 0 ? rawState.playlists : defaultLibraryState.playlists,
+//   };
+// }
 
-function readLocalState(userId) {
-  try {
-    const raw = window.localStorage.getItem(getStorageKey(userId));
-    return raw ? mergeWithDefaults(JSON.parse(raw)) : defaultLibraryState;
-  } catch {
-    return defaultLibraryState;
-  }
-}
+// function readLocalState(userId) {
+//   try {
+//     const raw = window.localStorage.getItem(getStorageKey(userId));
+//     return raw ? mergeWithDefaults(JSON.parse(raw)) : defaultLibraryState;
+//   } catch {
+//     return defaultLibraryState;
+//   }
+// }
 
-function writeLocalState(userId, state) {
-  window.localStorage.setItem(getStorageKey(userId), JSON.stringify(state));
-}
+// function writeLocalState(userId, state) {
+//   window.localStorage.setItem(getStorageKey(userId), JSON.stringify(state));
+// }
 
 // export async function loadPersistedLibrary() {
 //   const user = await ensureFirebaseUser();
@@ -347,42 +347,232 @@ function writeLocalState(userId, state) {
 //   }
 // }
 
-export async function loadPersistedLibrary() {
-  const user = await ensureFirebaseUser();
-  const localState = readLocalState(user?.uid);
+// export async function loadPersistedLibrary() {
+//   const user = await ensureFirebaseUser();
+//   const localState = readLocalState(user?.uid);
 
-  if (!isFirebaseConfigured || !db || !user) {
-    return { state: localState, cloudSync: false };
-  }
+//   if (!isFirebaseConfigured || !db || !user) {
+//     return { state: localState, cloudSync: false };
+//   }
 
+//   try {
+//     const snapshot = await getDoc(doc(db, "muzifyUsers", user.uid));
+
+//     if (!snapshot.exists()) {
+//       await setDoc(doc(db, "muzifyUsers", user.uid), localState);
+//       return { state: localState, cloudSync: true };
+//     }
+
+//     const firebaseState = mergeWithDefaults(snapshot.data());
+
+//     // Merge firebase with local — take whichever has more data per field
+//     const mergedState = {
+//       liked: firebaseState.liked?.length >= localState.liked?.length
+//         ? firebaseState.liked : localState.liked,
+//       history: firebaseState.history?.length >= localState.history?.length
+//         ? firebaseState.history : localState.history,
+//       journeys: firebaseState.journeys?.length >= localState.journeys?.length
+//         ? firebaseState.journeys : localState.journeys,
+//       playlists: firebaseState.playlists?.length >= localState.playlists?.length
+//         ? firebaseState.playlists : localState.playlists,
+//     };
+
+//     writeLocalState(user.uid, mergedState);
+//     return { state: mergedState, cloudSync: true };
+
+//   } catch (error) {
+//     console.error(error);
+//     return { state: localState, cloudSync: false };
+//   }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// export async function savePersistedLibrary(state) {
+//   const user = await ensureFirebaseUser();
+
+//   writeLocalState(user?.uid, state);
+
+//   if (!isFirebaseConfigured || !db || !user) {
+//     return false;
+//   }
+
+//   try {
+//     await setDoc(doc(db, "muzifyUsers", user.uid), state, { merge: true });
+//     return true;
+//   } catch {
+//     return false;
+//   }
+// }
+
+
+// import { doc, getDoc, setDoc } from "firebase/firestore";
+// import { db, isFirebaseConfigured } from "./firebase";
+
+// function getStorageKey(userId) {
+//   return userId ? `muzify-library-v2-${userId}` : "muzify-library-guest";
+// }
+
+// export const defaultLibraryState = {
+//   liked: [],
+//   history: [],
+//   journeys: [],
+//   playlists: [
+//     {
+//       id: "quick-capture",
+//       name: "Quick Capture",
+//       tracks: [],
+//       createdAt: new Date().toISOString(),
+//       updatedAt: new Date().toISOString(),
+//     },
+//   ],
+// };
+
+// function mergeWithDefaults(rawState) {
+//   return {
+//     ...defaultLibraryState,
+//     ...rawState,
+//     playlists:
+//       rawState?.playlists?.length > 0
+//         ? rawState.playlists
+//         : defaultLibraryState.playlists,
+//   };
+// }
+
+// function readLocalState(userId) {
+//   try {
+//     const raw = window.localStorage.getItem(getStorageKey(userId));
+//     return raw ? mergeWithDefaults(JSON.parse(raw)) : defaultLibraryState;
+//   } catch {
+//     return defaultLibraryState;
+//   }
+// }
+
+// function writeLocalState(userId, state) {
+//   window.localStorage.setItem(getStorageKey(userId), JSON.stringify(state));
+// }
+
+// export async function loadPersistedLibrary(user) {
+//   // Always read from the correct uid-scoped localStorage key
+//   const localState = readLocalState(user?.uid);
+
+//   // No firebase or no user — return localStorage immediately
+//   if (!isFirebaseConfigured || !db || !user || user.isAnonymous) {
+//     return { state: localState, cloudSync: false };
+//   }
+
+//   try {
+//     const snapshot = await getDoc(doc(db, "muzifyUsers", user.uid));
+
+//     if (!snapshot.exists()) {
+//       // First login — push local data to Firebase
+//       await setDoc(doc(db, "muzifyUsers", user.uid), localState);
+//       return { state: localState, cloudSync: true };
+//     }
+
+//     const firebaseState = mergeWithDefaults(snapshot.data());
+//     // Keep localStorage in sync with Firebase
+//     writeLocalState(user.uid, firebaseState);
+//     return { state: firebaseState, cloudSync: true };
+
+//   } catch (error) {
+//     console.error("Firebase load failed, using localStorage:", error);
+//     // Firebase offline or failed — localStorage still has correct data
+//     return { state: localState, cloudSync: false };
+//   }
+// }
+
+// export async function savePersistedLibrary(state, user) {
+//   // Always save to uid-scoped localStorage key first
+//   writeLocalState(user?.uid, state);
+
+//   if (!isFirebaseConfigured || !db || !user || user.isAnonymous) {
+//     return false;
+//   }
+
+//   try {
+//     await setDoc(doc(db, "muzifyUsers", user.uid), state, { merge: true });
+//     return true;
+//   } catch {
+//     return false;
+//   }
+// }
+
+
+
+
+function getStorageKey(userId) {
+  return userId ? `muzify-library-v2-${userId}` : "muzify-library-guest";
+}
+
+export const defaultLibraryState = {
+  liked: [],
+  history: [],
+  journeys: [],
+  playlists: [
+    {
+      id: "quick-capture",
+      name: "Quick Capture",
+      tracks: [],
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    },
+  ],
+};
+
+function mergeWithDefaults(rawState) {
+  return {
+    ...defaultLibraryState,
+    ...rawState,
+    playlists:
+      rawState?.playlists?.length > 0
+        ? rawState.playlists
+        : defaultLibraryState.playlists,
+  };
+}
+
+// function readLocalState(userId) {
+//   try {
+//     const raw = window.localStorage.getItem(getStorageKey(userId));
+//     return raw ? mergeWithDefaults(JSON.parse(raw)) : defaultLibraryState;
+//   } catch {
+//     return defaultLibraryState;
+//   }
+// }
+
+function readLocalState(userId) {
   try {
-    const snapshot = await getDoc(doc(db, "muzifyUsers", user.uid));
-
-    if (!snapshot.exists()) {
-      await setDoc(doc(db, "muzifyUsers", user.uid), localState);
-      return { state: localState, cloudSync: true };
-    }
-
-    const firebaseState = mergeWithDefaults(snapshot.data());
-
-    // Merge firebase with local — take whichever has more data per field
-    const mergedState = {
-      liked: firebaseState.liked?.length >= localState.liked?.length
-        ? firebaseState.liked : localState.liked,
-      history: firebaseState.history?.length >= localState.history?.length
-        ? firebaseState.history : localState.history,
-      journeys: firebaseState.journeys?.length >= localState.journeys?.length
-        ? firebaseState.journeys : localState.journeys,
-      playlists: firebaseState.playlists?.length >= localState.playlists?.length
-        ? firebaseState.playlists : localState.playlists,
-    };
-
-    writeLocalState(user.uid, mergedState);
-    return { state: mergedState, cloudSync: true };
-
-  } catch (error) {
-    console.error(error);
-    return { state: localState, cloudSync: false };
+    const key = getStorageKey(userId);
+    const raw = window.localStorage.getItem(key);
+    console.log("READ KEY:", key, "RAW:", raw);
+    return raw ? mergeWithDefaults(JSON.parse(raw)) : defaultLibraryState;
+  } catch {
+    return defaultLibraryState;
   }
 }
 
@@ -394,37 +584,23 @@ export async function loadPersistedLibrary() {
 
 
 
+function writeLocalState(userId, state) {
+  window.localStorage.setItem(getStorageKey(userId), JSON.stringify(state));
+}
+
+export async function loadPersistedLibrary(user) {
+  const state = readLocalState(user?.uid);
+  return { state, cloudSync: false };
+}
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-export async function savePersistedLibrary(state) {
-  const user = await ensureFirebaseUser();
+export async function savePersistedLibrary(state, user) {
+    console.log("SAVING TO KEY:", getStorageKey(user?.uid), "LIKED:", state.liked.length);
 
   writeLocalState(user?.uid, state);
-
-  if (!isFirebaseConfigured || !db || !user) {
-    return false;
-  }
-
-  try {
-    await setDoc(doc(db, "muzifyUsers", user.uid), state, { merge: true });
-    return true;
-  } catch {
-    return false;
-  }
+  return false;
 }
